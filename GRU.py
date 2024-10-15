@@ -11,7 +11,7 @@ def get_params(vocab_size, num_hiddens, device):
     num_inputs = num_outputs = vocab_size
 
     def normal(shape):
-        return torch.randn(size=shape,device=device,requires_grad=True) * 0.01
+        return torch.randn(size=shape, device=device, requires_grad=True) * 0.01
 
     def three():
         return (normal((num_inputs,num_hiddens)),
@@ -22,8 +22,8 @@ def get_params(vocab_size, num_hiddens, device):
     w3, w4, b2 = three()
     w5, w6, b3 = three()
 
-    w_out = normal((num_hiddens,num_outputs))
-    b_out = torch.zeros(num_outputs,device=device,requires_grad=True)
+    w_out = normal((num_hiddens, num_outputs))
+    b_out = torch.zeros(num_outputs,  device=device,requires_grad=True)
 
     return [w1, w2, b1, w3, w4, b2, w5, w6, b3, w5, w6, b3, w_out, b_out]
 
@@ -43,5 +43,5 @@ def gru(inputs,state,params):
         H = z * H +(1 - z) * H_tilda
         Y = H @ w_out + b_out
         outputs.append(Y)
-    return torch.cat(outputs,dim=0), (H,)
+    return torch.cat(outputs, dim=0), (H,)
 
